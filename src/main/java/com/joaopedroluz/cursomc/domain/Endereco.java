@@ -1,5 +1,7 @@
 package com.joaopedroluz.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -14,7 +16,7 @@ public class Endereco {
     private String bairro;
     private String cpf;
 
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
