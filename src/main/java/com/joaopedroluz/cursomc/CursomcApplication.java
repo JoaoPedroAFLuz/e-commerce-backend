@@ -1,13 +1,16 @@
 package com.joaopedroluz.cursomc;
 
 import com.joaopedroluz.cursomc.domain.*;
+import com.joaopedroluz.cursomc.domain.enums.EstadoPagamento;
 import com.joaopedroluz.cursomc.domain.enums.TipoCliente;
 import com.joaopedroluz.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,11 +30,15 @@ public class CursomcApplication implements CommandLineRunner {
     private EnderecoRepository enderecoRepository;
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursomcApplication.class, args);
     }
-
+    @Transactional
     public void run(String... args) throws Exception {
         Categoria cat1 = new Categoria("Informática");
         Categoria cat2 = new Categoria("Escritório");
@@ -78,6 +85,30 @@ public class CursomcApplication implements CommandLineRunner {
 
         cli1.addEndereco(e1, e2);
 
+        clienteRepository.saveAll(List.of(cli1));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Pedido ped1 = new Pedido(sdf.parse("30/09/2017 10:32"), cli1, e1);
+        Pedido ped2 = new Pedido(sdf.parse("10/10/2017 19:35"), cli1, e2);
+
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+
+
+        pedidoRepository.save(ped1);
+        pedidoRepository.save(ped2);
+
+        Pagamento pagto1 = new PagamentoComCartao(EstadoPagamento.QUITADO, ped1, 6);
+        Pagamento pagto2 = new PagamentoComBoleto(EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+
+        pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
+        ped1.setPagamento(pagto1);
+        ped2.setPagamento(pagto2);
+
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+
+        cli1.addPedidos(ped1, ped2);
         clienteRepository.saveAll(List.of(cli1));
 
     }
