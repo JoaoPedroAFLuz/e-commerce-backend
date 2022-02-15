@@ -9,7 +9,6 @@ import java.util.Objects;
 
 @Entity
 public class ItemPedido {
-
     @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();

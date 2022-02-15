@@ -15,11 +15,9 @@ public class Pedido {
     @JsonFormat(pattern = "dd/mm/yyyy HH:mm")
     private Date instante;
 
-    @JsonManagedReference
     @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
