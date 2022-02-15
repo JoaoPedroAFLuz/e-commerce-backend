@@ -1,21 +1,25 @@
 package com.joaopedroluz.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Entity
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @JsonFormat(pattern = "dd/mm/yyyy HH:mm")
     private Date instante;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -83,6 +87,10 @@ public class Pedido {
 
     public void setItens(Set<ItemPedido> itens) {
         this.itens = itens;
+    }
+
+    public void addItens(ItemPedido... itens) {
+        this.itens.addAll(Arrays.asList(itens));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.joaopedroluz.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joaopedroluz.cursomc.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ public abstract class Pagamento {
     private Integer id;
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

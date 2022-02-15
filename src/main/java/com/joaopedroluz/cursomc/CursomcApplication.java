@@ -34,10 +34,13 @@ public class CursomcApplication implements CommandLineRunner {
     private PedidoRepository pedidoRepository;
     @Autowired
     private PagamentoRepository pagamentoRepository;
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursomcApplication.class, args);
     }
+
     @Transactional
     public void run(String... args) throws Exception {
         Categoria cat1 = new Categoria("Informática");
@@ -111,5 +114,15 @@ public class CursomcApplication implements CommandLineRunner {
         cli1.addPedidos(ped1, ped2);
         clienteRepository.saveAll(List.of(cli1));
 
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 200.00);
+        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+        ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+        itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+
+        ped1.addItens(ip1, ip3);
+        p1.addItens(ip1);
+        p2.addItens(ip2);
+        p3.addItens(ip3);
     }
 }

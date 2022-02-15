@@ -1,5 +1,7 @@
 package com.joaopedroluz.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import java.util.Objects;
 @Entity
 public class ItemPedido {
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -15,7 +18,8 @@ public class ItemPedido {
     private Integer quantidade;
     private Double preco;
 
-    public ItemPedido(){};
+    public ItemPedido() {
+    }
 
     public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
         id.setPedido(pedido);
@@ -25,11 +29,12 @@ public class ItemPedido {
         this.preco = preco;
     }
 
-    public Pedido getPedido(){
+    @JsonIgnore
+    public Pedido getPedido() {
         return id.getPedido();
     }
 
-    public Produto getProduto(){
+    public Produto getProduto() {
         return id.getProduto();
     }
 
