@@ -1,8 +1,6 @@
 package com.joaopedroluz.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

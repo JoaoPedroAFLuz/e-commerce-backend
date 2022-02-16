@@ -1,6 +1,7 @@
 package com.joaopedroluz.cursomc.services;
 
 import com.joaopedroluz.cursomc.domain.Categoria;
+import com.joaopedroluz.cursomc.dto.CategoriaDTO;
 import com.joaopedroluz.cursomc.repositories.CategoriaRepository;
 import com.joaopedroluz.cursomc.services.exceptions.DataIntegrityViolationException;
 import com.joaopedroluz.cursomc.services.exceptions.ObjectNotFoundException;
@@ -50,6 +51,10 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getNome());
     }
 }
 
