@@ -111,6 +111,11 @@ public class Cliente {
         this.pedidos.addAll(Arrays.asList(pedidos));
     }
 
+    public void addTelfones(String... telefones){
+        this.telefones.addAll(Arrays.asList(telefones));
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

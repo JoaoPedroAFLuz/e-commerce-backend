@@ -1,8 +1,11 @@
 package com.joaopedroluz.cursomc.resources;
 
+import com.joaopedroluz.cursomc.domain.Categoria;
 import com.joaopedroluz.cursomc.domain.Cliente;
 import com.joaopedroluz.cursomc.domain.Cliente;
+import com.joaopedroluz.cursomc.dto.CategoriaDTO;
 import com.joaopedroluz.cursomc.dto.ClienteDTO;
+import com.joaopedroluz.cursomc.dto.ClienteNewDTO;
 import com.joaopedroluz.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,6 +47,15 @@ public class ClienteResource {
         Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
         Page<ClienteDTO> listDto = list.map(ClienteDTO::new);
         return ResponseEntity.ok().body(listDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+        Cliente obj = service.fromDTO(objDTO);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")

@@ -15,7 +15,7 @@ public class Endereco {
     private String numero;
     private String complemento;
     private String bairro;
-    private String cpf;
+    private String cep;
 
     @JsonIgnore
     @ManyToOne
@@ -27,12 +27,12 @@ public class Endereco {
 
     Endereco(){};
 
-    public Endereco(String logradouro, String numero, String complemento, String bairro, String cpf, Cliente cliente, Cidade cidade) {
+    public Endereco(String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
-        this.cpf = cpf;
+        this.cep = cep;
         this.cliente = cliente;
         this.cidade = cidade;
     }
@@ -78,11 +78,11 @@ public class Endereco {
     }
 
     public String getCpf() {
-        return cpf;
+        return cep;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpf(String cep) {
+        this.cep = cep;
     }
 
     public Cliente getCliente() {
