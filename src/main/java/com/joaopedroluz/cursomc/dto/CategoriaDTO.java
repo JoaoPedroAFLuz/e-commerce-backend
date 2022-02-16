@@ -16,7 +16,7 @@ public class CategoriaDTO {
     public CategoriaDTO() {
     }
 
-    public CategoriaDTO(Categoria obj){
+    public CategoriaDTO(Categoria obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
     }
