@@ -133,9 +133,9 @@ public class CursomcApplication implements CommandLineRunner {
         cli1.addPedidos(ped1, ped2);
         clienteRepository.saveAll(List.of(cli1));
 
-        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 200.00);
-        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
-        ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1);
+        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2);
+        ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1);
 
         itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 

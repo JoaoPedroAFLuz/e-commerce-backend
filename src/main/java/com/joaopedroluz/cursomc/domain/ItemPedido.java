@@ -20,12 +20,16 @@ public class ItemPedido {
     public ItemPedido() {
     }
 
-    public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
+    public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade) {
         id.setPedido(pedido);
         id.setProduto(produto);
         this.desconto = desconto;
         this.quantidade = quantidade;
-        this.preco = preco;
+        this.preco = produto.getPreco();
+    }
+
+    public Double getSubTotal() {
+        return (preco - desconto) * quantidade;
     }
 
     @JsonIgnore
