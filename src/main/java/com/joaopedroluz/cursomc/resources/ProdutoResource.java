@@ -1,8 +1,6 @@
 package com.joaopedroluz.cursomc.resources;
 
-import com.joaopedroluz.cursomc.domain.Categoria;
 import com.joaopedroluz.cursomc.domain.Produto;
-import com.joaopedroluz.cursomc.dto.CategoriaDTO;
 import com.joaopedroluz.cursomc.dto.ProdutoDTO;
 import com.joaopedroluz.cursomc.resources.utils.URL;
 import com.joaopedroluz.cursomc.services.ProdutoService;
