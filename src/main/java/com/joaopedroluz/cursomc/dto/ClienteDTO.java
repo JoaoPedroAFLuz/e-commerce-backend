@@ -2,10 +2,12 @@ package com.joaopedroluz.cursomc.dto;
 
 import com.joaopedroluz.cursomc.domain.Categoria;
 import com.joaopedroluz.cursomc.domain.Cliente;
+import com.joaopedroluz.cursomc.services.validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
+@ClienteUpdate
 public class ClienteDTO {
 
     private Integer id;
