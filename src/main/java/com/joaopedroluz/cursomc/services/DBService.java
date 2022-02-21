@@ -46,7 +46,6 @@ public class DBService {
         Categoria cat6 = new Categoria("Decoração");
         Categoria cat7 = new Categoria("Perfumaria");
 
-
         Produto p1 = new Produto("Computador", 2000.00);
         Produto p2 = new Produto("Impressora", 800.00);
         Produto p3 = new Produto("Mouse", 80.00);
