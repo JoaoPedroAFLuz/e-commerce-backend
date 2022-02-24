@@ -3,10 +3,12 @@ package com.joaopedroluz.cursomc.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.joaopedroluz.cursomc.domain.enums.Perfil;
 import com.joaopedroluz.cursomc.domain.enums.TipoCliente;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente {
@@ -30,19 +32,25 @@ public class Cliente {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = (tipo==null) ? null : tipo.getCod();
+        this.tipo = (tipo == null) ? null : tipo.getCod();
         this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -97,6 +105,14 @@ public class Cliente {
         this.senha = senha;
     }
 
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCod());
+    }
+
     public List<Endereco> getEnderecos() {
         return enderecos;
     }
@@ -125,11 +141,11 @@ public class Cliente {
         this.enderecos.addAll(Arrays.asList(enderecos));
     }
 
-    public void addPedidos(Pedido... pedidos){
+    public void addPedidos(Pedido... pedidos) {
         this.pedidos.addAll(Arrays.asList(pedidos));
     }
 
-    public void addTelfones(String... telefones){
+    public void addTelfones(String... telefones) {
         this.telefones.addAll(Arrays.asList(telefones));
     }
 
