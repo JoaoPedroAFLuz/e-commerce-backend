@@ -4,12 +4,15 @@ import com.joaopedroluz.cursomc.domain.Cidade;
 import com.joaopedroluz.cursomc.domain.Cliente;
 import com.joaopedroluz.cursomc.domain.Cliente;
 import com.joaopedroluz.cursomc.domain.Endereco;
+import com.joaopedroluz.cursomc.domain.enums.Perfil;
 import com.joaopedroluz.cursomc.domain.enums.TipoCliente;
 import com.joaopedroluz.cursomc.dto.ClienteDTO;
 import com.joaopedroluz.cursomc.dto.ClienteNewDTO;
 import com.joaopedroluz.cursomc.repositories.ClienteRepository;
 import com.joaopedroluz.cursomc.repositories.ClienteRepository;
 import com.joaopedroluz.cursomc.repositories.EnderecoRepository;
+import com.joaopedroluz.cursomc.security.UserSS;
+import com.joaopedroluz.cursomc.services.exceptions.AuthorizationException;
 import com.joaopedroluz.cursomc.services.exceptions.DataIntegrityViolationException;
 import com.joaopedroluz.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +40,11 @@ public class ClienteService {
     }
 
     public Cliente find(Integer id) {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
