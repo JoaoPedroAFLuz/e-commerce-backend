@@ -14,9 +14,14 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
+
+    @JsonIgnore
+    private String senha;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
@@ -32,11 +37,12 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+    public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = (tipo==null) ? null : tipo.getCod();
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -79,6 +85,18 @@ public class Cliente {
         this.tipo = tipo.getCod();
     }
 
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public List<Endereco> getEnderecos() {
         return enderecos;
     }
@@ -114,7 +132,6 @@ public class Cliente {
     public void addTelfones(String... telefones){
         this.telefones.addAll(Arrays.asList(telefones));
     }
-
 
     @Override
     public boolean equals(Object o) {
