@@ -53,12 +53,12 @@ public class DBService {
         Produto p1 = new Produto("Computador", 2000.00);
         Produto p2 = new Produto("Impressora", 800.00);
         Produto p3 = new Produto("Mouse", 80.00);
-        Produto p4 = new Produto("Mesa de escritório", 300.00);
+        Produto p4 = new Produto("Mesa de Escritório", 300.00);
         Produto p5 = new Produto("Toalha", 50.00);
         Produto p6 = new Produto("Colcha", 200.00);
-        Produto p7 = new Produto("TV true color", 1200.00);
+        Produto p7 = new Produto("TV True Color", 1200.00);
         Produto p8 = new Produto("Roçadeira", 800.00);
-        Produto p9 = new Produto("Abajour", 100.00);
+        Produto p9 = new Produto("Abajur", 100.00);
         Produto p10 = new Produto("Pendente", 180.00);
         Produto p11 = new Produto("Shampoo", 90.00);
 

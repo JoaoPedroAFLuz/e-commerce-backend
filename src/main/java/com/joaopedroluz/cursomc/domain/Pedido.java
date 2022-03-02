@@ -132,7 +132,7 @@ public class Pedido {
         for (ItemPedido ip: getItens()){
             sb.append(ip.toString());
         }
-        sb.append("Valor total: ");
+        sb.append("Valor total: R$");
         sb.append(nf.format(getValorTotal()));
         return sb.toString();
     }

@@ -89,10 +89,6 @@ public class Cliente {
         return TipoCliente.toEnum(tipo);
     }
 
-    public void setTipo(TipoCliente tipo) {
-        this.tipo = tipo.getCod();
-    }
-
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
